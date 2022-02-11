@@ -3,6 +3,7 @@ package dev.rmedina.cursokotlinprincipiantes
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.IndexOutOfBoundsException
 
 // Added this ::: just for getting easier the search in the logs
 // Since it's a constant --> The way to declare it is with "val"
@@ -30,8 +31,10 @@ class MainActivity : AppCompatActivity() {
 //        bucleWhile()
 //        bucleDoWhile()
 //        controlDeErrores()
-
 //        botDeSeguridad()
+//        testFirstQuestion()
+//        testSecondQuestion()
+        testThirdAndFourQuestion()
     }
 
     private fun dataType() {
@@ -194,6 +197,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "Tercera opcion")
         }
 
+        // Assign values to a variable directly following the if and else structure
         val edad: Int = if (!booleanValue) {
             17
         } else {
@@ -204,27 +208,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun condicionalesWhen() {
+
+        // 1) With String
 //        val language = "Scala"
 //
 //        when (language) {
-//            "Kotlin", "Scala" -> {
-//                Log.d(TAG, "Se ha seleccionado Kotlin")
+//            "Kotlin", "Scala" -> {                      // Several options with the same behavior
+//                Log.d(TAG, "Se ha seleccionado Kotlin") // Block of code can be added
 //            }
 //            "Java" -> Log.d(TAG, "Se ha seleccionado Java")
 //            "Python" -> Log.d(TAG, "Se ha seleccionado Python")
 //            "Ruby" -> Log.d(TAG, "Se ha seleccionado Ruby")
-//            else -> Log.d(TAG, "Se ha seleccionado otro lenguaje")
+//            else -> Log.d(TAG, "Se ha seleccionado otro lenguaje") // Default value, in case it doesn't match with any specific value
 //        }
 
+        // 2) With integers
         val myNumber = 94
         when (myNumber) {
-            in 0..10 -> {
+            in 0..10 -> {                                     // All integers into a range
                 Log.d(TAG, "Se ha seleccionado Kotlin")
             }
             40 -> {
                 Log.d(TAG, "Se ha seleccionado Java")
             }
-            in 80..119 -> {
+            in 80..119 -> {                                  // All integers into a range
                 Log.d(TAG, "Se ha seleccionado Python")
             }
             120 -> {
@@ -236,36 +243,56 @@ class MainActivity : AppCompatActivity() {
 
     private fun listados() {
         val myList = listOf("Rodrigo", "Raquel", "David", "Lorena", "Allison")
+//        val myyList: List<String> = listOf<String>()                                    // Declaring the object
         val myArrayList = arrayListOf("Rodrigo", "Raquel", "David", "Lorena", "Allison")
 
+        // Get access to the elements either list and array via []
         val listItem = myList[2]
+//        myList[2] = "Sandra"                                                             // List is immutable
 
         myArrayList[2] = "Sandra"
         val arrayListItem = myArrayList[2]
 
+        // Ways to remove element in an arrayList
+        // 1) By position
         myArrayList.removeAt(3)
+        // 2) By value. It looks for an element into the list, and if it find it --> it removes it
+        myArrayList.remove("Rodrigo")
+
+        myArrayList.addAll(myList)
+
+        myArrayList.add("Carol")
 
         Log.d(TAG, myArrayList.toString())
     }
 
     private fun bucleFor() {
+        Log.d(TAG, "For loop")
+
         val myArrayList = arrayListOf("Rodrigo", "Raquel", "David", "Lorena", "Allison")
 
+        // Ways to indicate loop for
+        // 1) in  running a list of element
 //        for (persona in myArrayList) {
 //            Log.d(TAG, persona)
 //        }
 
+        // 2) in  indicating the starting and end point
 //        for (position in 0 until 5) {
 //            Log.d(TAG, position.toString())
 //        }
 
+        // 3) in  indicating the starting, end point and the step in each iteration
 //        for (position in 0..10 step 3) {
 //            Log.d(TAG, position.toString())
 //        }
 
+        // 4) downTo  for regressive count, for high to low numbers
+//        for (position in 10 .. 3 step 2) {        // In code time we don't get an error, but yes a warning, indicating to us that it's not going to work
         for (position in 10 downTo 3 step 2) {
             Log.d(TAG, position.toString())
         }
+
     }
 
     private fun bucleWhile() {
@@ -281,8 +308,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bucleDoWhile() {
-        var myNumber = 1
+        var myNumber = 11
 
+        // Firstly execute the code and afterwards check the condition for the next iteration === At least one time the code block of code is executed
         do {
             Log.d(TAG, myNumber.toString())
             myNumber++
@@ -292,11 +320,16 @@ class MainActivity : AppCompatActivity() {
     private fun controlDeErrores() {
         val myArrayList = arrayListOf(1, 2, 3, 4, 5)
         val myString: String = "Hola"
+//        val myStringPerhapsNull: String? = null
 
+        // Handle errors in executiontime, not in compilation time
         try {
             for (position in 0..myArrayList.size) {
+//                Log.d(TAG, myArrayList[position].toString())  // Code which throws an error, because  arrayList start the position from 0. But we are handling the error
                 Log.d(TAG, myString)
+//                Log.d(TAG, myStringPerhapsNull!!)               // !!  Indicating to Kotlin that we manage this NPE
             }
+//        } catch (ex: IndexOutOfBoundsException) {
         } catch (exception: Exception) {
             exception.printStackTrace()
             Log.d(TAG, "Catch")
@@ -396,6 +429,55 @@ Reglas:
         val alfredoData = alfredo.getProgrammerData()
         Log.d(TAG, "Programmer with name ${alfredoData.name} who is ${alfredoData.age} years old, is learning ${alfredoData.language}")
 
+    }
+
+    private fun testFirstQuestion() {
+        try {
+            val list = listOf<String>()
+            val firstValue = list[5]
+            Log.d("TAG", firstValue)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun testSecondQuestion() {
+        val value = 8
+
+        when (value) {
+            0 -> {
+                Log.d("TAG", "Result 1")
+            }
+            in 1..10 -> {
+                Log.d("TAG", "Result 2")
+            }
+            in 11..20 -> {
+                Log.d("TAG", "Result 3")
+            }
+            else -> {
+                Log.d("TAG", "Result 4")
+            }
+        }
+    }
+
+    private fun testThirdAndFourQuestion() {
+        val firstValue = 15
+        val secondValue = 12
+
+        val result = if (secondValue >= firstValue || secondValue > 0) {
+            "Result 1"
+        } else if (secondValue == 12) {
+            "Result 2"
+        } else {
+            "Result 3"
+        }
+
+        Log.d(TAG, result.toString())
+
+        // Until is without including the last one
+        for (i in 0 until 10) {
+            Log.d("TAG", i.toString())
+        }
     }
 
 }
