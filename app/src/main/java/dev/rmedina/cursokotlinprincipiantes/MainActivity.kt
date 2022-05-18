@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 //        dataType()
 //        operators()
-//        nullSafety()
+        nullSafety()
 //        paramFunctionsAndReturning("Alfredo", 29)
 //        inferringTheTypeToReturn()
 //        innerClass()
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 //        botDeSeguridad()
 //        testFirstQuestion()
 //        testSecondQuestion()
-        testThirdAndFourQuestion()
+//        testThirdAndFourQuestion()
     }
 
     private fun dataType() {
@@ -104,6 +104,13 @@ class MainActivity : AppCompatActivity() {
 //        1) Since it's not a strict string primitive data, because it can be null --> It doesn't work
 //        Log.d(TAG, perhapsIsNull)
 //        2) If you check previously that it's not null --> You don't get an error in code time
+        try {
+            Log.d(TAG, perhapsIsNull!!)
+            Log.d(TAG, "aaa")
+        } catch (e: Exception){
+            Log.d("error", e.message.toString());
+        }
+
         if (perhapsIsNull !=null) {
             Log.d(TAG, perhapsIsNull)
         }
@@ -262,6 +269,8 @@ class MainActivity : AppCompatActivity() {
         myArrayList.addAll(myList)
 
         myArrayList.add("Carol")
+
+        myList
 
         Log.d(TAG, myArrayList.toString())
     }
